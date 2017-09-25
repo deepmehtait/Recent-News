@@ -5,16 +5,14 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.support.customtabs.CustomTabsIntent;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.customtabs.CustomTabsIntent;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -35,6 +33,7 @@ import pl.tajchert.waitingdots.DotsTextView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import utils.AppStatus;
 import utils.CalanderDates;
 import utils.Constants;
 import utils.HumanTime;
@@ -47,6 +46,7 @@ public class Sports extends Fragment {
     RetrofitInterface retrofitInterface;
     DotsTextView dotsTextView;
     Docs currentDocument;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -62,38 +62,44 @@ public class Sports extends Fragment {
         String searchString = "sports";
         Log.d("dates", CalanderDates.getYearMonthDateString());
         Call<TopNews> call = retrofitInterface.getTopNews(Constants.NY_API_KEY, searchString, CalanderDates.getYearMonthDateString());
-        call.enqueue(new Callback<TopNews>() {
-            @Override
-            public void onResponse(Call<TopNews> call, Response<TopNews> response) {
-                Log.d("response", "" + response.body());
-                if (response.isSuccessful()) {
-                    TopNews tp = response.body();
-                    List<Docs> docs = tp.getResponse().getDocs();
-                    for (int i = 0; i < docs.size(); i++) {
-                        if (docs.get(i).getMultimedia().size() > 0) {
-                            currentDocument = docs.get(i);
-                            textView.setText(docs.get(i).getHeadline().getMain());
-                            long ms = 0;
-                            try {
-                                ms = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss+SSSS").parse(docs.get(i).getPub_date()).getTime());
-                                topStoriesAgo.setText(HumanTime.getTimeAgo(ms, view.getContext()));
-                            } catch (ParseException e) {
-                                e.printStackTrace();
+        if (AppStatus.getInstance(view.getContext()).isOnline()) {
+            call.enqueue(new Callback<TopNews>() {
+                @Override
+                public void onResponse(Call<TopNews> call, Response<TopNews> response) {
+                    Log.d("response", "" + response.body());
+                    if (response.isSuccessful()) {
+                        TopNews tp = response.body();
+                        List<Docs> docs = tp.getResponse().getDocs();
+                        for (int i = 0; i < docs.size(); i++) {
+                            if (docs.get(i).getMultimedia().size() > 0) {
+                                currentDocument = docs.get(i);
+                                textView.setText(docs.get(i).getHeadline().getMain());
+                                long ms = 0;
+                                try {
+                                    ms = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss+SSSS").parse(docs.get(i).getPub_date()).getTime());
+                                    topStoriesAgo.setText(HumanTime.getTimeAgo(ms, view.getContext()));
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                Glide.with(view.getContext()).load(Constants.IMAGE_URL_BASE + docs.get(i).getMultimedia().get(0).getUrl()).centerCrop().error(R.drawable.noimg)
+                                        .into(imageView);
+                                dotsTextView.hideAndStop();
+                                break;
                             }
-                            Glide.with(view.getContext()).load(Constants.IMAGE_URL_BASE + docs.get(i).getMultimedia().get(0).getUrl()).centerCrop().error(R.drawable.noimg)
-                                    .into(imageView);
-                            dotsTextView.hideAndStop();
-                            break;
                         }
                     }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<TopNews> call, Throwable t) {
-                Log.d("tech", t.getMessage());
-            }
-        });
+                @Override
+                public void onFailure(Call<TopNews> call, Throwable t) {
+                    Log.d("tech", t.getMessage());
+                }
+            });
+
+        } else {
+            Snackbar.make(view.findViewById(R.id.sportsRR), "No Internet Connection", Snackbar.LENGTH_LONG)
+                    .show();
+        }
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,7 +111,7 @@ public class Sports extends Fragment {
                     Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_share);
                     Intent intent = new Intent(Intent.ACTION_SEND);
                     intent.setType("text/plain");
-                    intent.putExtra(Intent.EXTRA_TEXT, currentDocument.getWeb_url()+ " " + currentDocument.getHeadline().getPrint_headline());
+                    intent.putExtra(Intent.EXTRA_TEXT, currentDocument.getWeb_url() + " " + currentDocument.getHeadline().getPrint_headline());
                     int requestCode = 100;
 
                     PendingIntent pendingIntent = PendingIntent.getActivity(view.getContext(),
