@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:minHeight="200dp"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/datePickerLayout"
+            android:layout_below="@+id/idSearch"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date: "
+                android:layout_marginTop="10dp"
+                android:id="@+id/TxtViewDate"/>
+
+            <ImageButton
+                android:id="@+id/datepicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:src="@drawable/ic_action_name"
+
+                />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search_new_york_times"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/primary" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/idSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:theme="@style/AppTheme">
+
+            <EditText
+                android:id="@+id/input_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:hint="@string/search"
+                android:inputType="text">
+
+                <requestFocus />
+            </EditText>
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:id="@+id/sortOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/datePickerLayout"
+            android:focusable="true"
+            android:text="@string/sort_order"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/primary" />
+
+        <RadioGroup
+            android:id="@+id/toDoRG"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sortOrder"
+            android:checkedButton="@+id/normal"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/oldest" />
+
+            <RadioButton
+                android:id="@+id/low"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/newest" />
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toDoRG"
+            android:focusable="true"
+            android:text="@string/article_type"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/primary" />
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/status"
+            android:orientation="vertical">
+            <CheckBox
+                android:id="@+id/artsCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/arts" />
+            <CheckBox
+                android:id="@+id/FashionCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/fashion_style" />
+            <CheckBox
+                android:id="@+id/sportsCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/status"
+                android:layout_centerInParent="true"
+                android:text="@string/sports" />
+        </LinearLayout>
+
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_save"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/linearLayout"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@android:color/transparent"
+            android:elevation="10dp"
+            android:padding="12dp"
+            android:text="@string/search"
+            android:textColor="@color/primary"
+            android:textColorLink="@color/primary"
+            android:textSize="15sp">
+
+        </android.support.v7.widget.AppCompatButton>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_cancel"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/btn_save"
+            android:layout_toLeftOf="@+id/btn_save"
+            android:layout_toStartOf="@+id/btn_save"
+            android:background="@android:color/transparent"
+            android:elevation="10dp"
+            android:padding="12dp"
+            android:text="Cancel"
+            android:textColor="@color/primary_text"
+            android:textColorLink="@color/primary"
+            android:textSize="15sp">
+
+        </android.support.v7.widget.AppCompatButton>
+
+    </RelativeLayout>
+</ScrollView>

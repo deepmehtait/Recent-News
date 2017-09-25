@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Recent News</string>
+    <string name="see_more">See More</string>
+    <string name="search_new_york_times">Search New York Times</string>
+    <string name="sort_order">Sort Order</string>
+    <string name="oldest">Oldest</string>
+    <string name="newest">Newest</string>
+    <string name="article_type">Article Type</string>
+    <string name="arts">Arts</string>
+    <string name="sports">Sports</string>
+    <string name="fashion_style"><![CDATA[Fashion & Style]]></string>
+    <string name="search">Search</string>
 </resources>
