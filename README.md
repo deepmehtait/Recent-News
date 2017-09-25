@@ -1,5 +1,3 @@
-# Recent-News
-An Android based news app.
 # *Recent News*
 
 **Recent News** is an android app that allows a user to search for articles on web using simple filters. The app utilizes [New York Times Search API](http://developer.nytimes.com/docs/read/article_search_api_v2).
@@ -43,7 +41,7 @@ The following **additional** features are implemented:
 
 ## Video Walkthrough
 
-
+<img src='https://github.com/deepmehtait/Recent-News/blob/master/Demo/news.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 ## Open-source libraries used
 
