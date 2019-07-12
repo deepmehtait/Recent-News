@@ -1,4 +1,6 @@
 # *Recent News*
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+<br/>
 ![Img](/RecentNews/app/src/main/res/mipmap-xxhdpi/ic_launcher.png?raw=true)
 
 **Recent News** is an android app that allows a user to search for articles on web using simple filters. The app utilizes [New York Times Search API](http://developer.nytimes.com/docs/read/article_search_api_v2).
